@@ -10,7 +10,7 @@ import yfinance as yf
 
 SYMS = {"ES": "ES=F", "NQ": "NQ=F", "RTY": "RTY=F", "GC": "GC=F", "CL": "CL=F",
         "ZN": "ZN=F", "6E": "6E=F", "6B": "6B=F", "EURUSD": "EURUSD=X", "GBPUSD": "GBPUSD=X"}
-PLAN = [("1m", "7d"), ("5m", "60d"), ("1d", "2y")]
+PLAN = [("1m", "7d"), ("5m", "60d"), ("1h", "730d"), ("1d", "2y")]
 OUT = "data"
 
 

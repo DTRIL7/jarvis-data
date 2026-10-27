@@ -4,6 +4,7 @@ Free daily market data feed for the Jarvis Trading Desk. A GitHub Actions robot 
 
 - `data/1m/` keeps 1 minute bars (Yahoo serves the last 7 days, so history grows from the day the feed starts)
 - `data/5m/` keeps 5 minute bars (the first run backfills about 60 days)
+- `data/1h/` keeps hourly bars (Yahoo serves about 2 years, so this adds out of sample history)
 - `data/1d/` keeps daily bars (2 years)
 - `data/last_update.json` says when the robot last ran and what it saved
 
