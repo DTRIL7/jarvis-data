@@ -1,0 +1,35 @@
+name: jarvis-data
+
+on:
+  schedule:
+    # 21:20 UTC weekdays = 2:20 PM Pacific in summer, 1:20 PM in winter (after Topstep's daily flatten)
+    - cron: "20 21 * * 1-5"
+    # 01:40 UTC Tue to Sat = evening refresh so the Topstep reopen bars are captured too
+    - cron: "40 1 * * 2-6"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: jarvis-data
+  cancel-in-progress: false
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install --quiet yfinance pandas
+      - run: python fetch.py
+      - name: Commit data
+        run: |
+          git config user.name "jarvis-data-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data
+          git commit -m "data $(date -u +%Y-%m-%dT%H%MZ)" || echo "no changes"
+          git push
