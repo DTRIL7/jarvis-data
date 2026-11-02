@@ -20,7 +20,9 @@ jobs:
         with:
           python-version: "3.12"
       - run: pip install --quiet youtube-transcript-api
-      - run: python transcript.py ${{ github.event.inputs.videos }}
+      - env:
+          VIDEOS: ${{ github.event.inputs.videos }}
+        run: python transcript.py $VIDEOS
       - name: Commit transcripts
         run: |
           git config user.name "jarvis-data-bot"
